@@ -13,7 +13,7 @@ namespace FoodManagementApp.MVVM.Model
         public double Price { get; set; }
         public string Description { get; set; }
         public string Category { get; set; }
-        public ObservableCollection<Ingredient> Ingredients { get; set; }
+        public ObservableCollection<string> Ingredients { get; set; }
         public string ImageUrl { get; set; }
     }
 }

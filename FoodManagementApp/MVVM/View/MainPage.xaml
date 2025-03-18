@@ -1,16 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                x:Class="FoodManagementApp.MainPage"
-                Title="Lista Potraw">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FoodManagementApp.MainPage"
+             Title="Lista Potraw">
     <StackLayout>
         <ListView x:Name="DishesListView"
-                     ItemsSource="{Binding Dishes}"
-                     SelectedItem="{Binding SelectedDish}"
-                     ItemTapped="OnDishTapped">
+                  ItemsSource="{Binding Dishes}"
+                  SelectedItem="{Binding SelectedDish}">
+            <!--ItemTapped="OnDishTapped"-->
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding Name}" Detail="{Binding Price}" />
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Padding="10">
+                            <Image Source="{Binding ImageUrl}" WidthRequest="50" HeightRequest="50" Margin="0,0,10,0" />
+                            <StackLayout Orientation="Vertical" VerticalOptions="Center">
+                                <Label Text="{Binding Name}" FontSize="Medium" />
+                                <Label Text="{Binding Price, StringFormat='{}{0:C}'}" FontSize="Small" TextColor="Gray" />
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
