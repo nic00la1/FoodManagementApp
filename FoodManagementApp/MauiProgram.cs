@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using FoodManagementApp.Services;
+using Microsoft.Extensions.Logging;
 
 namespace FoodManagementApp;
 
@@ -18,6 +19,8 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
+
+		builder.Services.AddSingleton<DishService>();
 
 		return builder.Build();
 	}
