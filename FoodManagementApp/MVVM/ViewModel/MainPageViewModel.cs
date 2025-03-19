@@ -9,35 +9,28 @@ namespace FoodManagementApp.MVVM.ViewModel
 {
     public class MainPageViewModel : BindableObject
     {
-        private Dish _selectedDish;
-        private readonly DishService _dishService;
+        public ObservableCollection<Dish> Dishes { get; set; }
+        public Command ShowDetailedCmd { get; }
 
-        public ObservableCollection<Dish> Dishes => _dishService.Dishes;
-        public Dish SelectedDish
+        private readonly INavigation _navigation;
+        private readonly DishService _dataService;
+
+        public MainPageViewModel(DishService dataService, INavigation navigation)
         {
-            get => _selectedDish;
-            set
-            {
-                _selectedDish = value;
-                OnPropertyChanged();
-            }
-        }
+            _navigation = navigation;
+            _dataService = dataService;
 
-        public ICommand DishTappedCommand { get; }
+            Dishes = _dataService.Dishes;
 
-        public MainPageViewModel()
-        {
-            _dishService = new DishService();
-            DishTappedCommand = new Command<Dish>(OnDishTapped);
+            ShowDetailedCmd = new Command<Dish>(OnDishTapped);
         }
 
         private async void OnDishTapped(Dish dish)
         {
             if (dish != null)
             {
-                await Application.Current.MainPage.Navigation.PushAsync(new EditDishPage(dish, _dishService));
-                // Odśwież listę potraw po powrocie z ekranu edycji
-                OnPropertyChanged(nameof(Dishes));
+                if (dish != null)
+                    await _navigation.PushAsync(new EditDishPage(dish));
             }
         }
     }

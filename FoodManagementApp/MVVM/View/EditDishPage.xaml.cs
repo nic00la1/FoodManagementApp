@@ -7,10 +7,23 @@ namespace FoodManagementApp.MVVM.View
 {
     public partial class EditDishPage : ContentPage
     {
-        public EditDishPage(Dish dish, DishService dishService)
+        public Dish SelectedDish { get; set; }
+
+        public EditDishPage(Dish dish)
         {
             InitializeComponent();
-            BindingContext = new EditDishViewModel(dish, dishService);
+            BindingContext = dish;
+            SelectedDish = dish;
+        }
+
+        public async void SaveEditDish(object sender, EventArgs e)
+        {
+            SelectedDish.SaveData(SelectedDish.Name, SelectedDish.Type, SelectedDish.Description, SelectedDish.Price, SelectedDish.Ingredients);
+        }
+
+        private void AddIngredient(object sender, EventArgs e)
+        {
+            SelectedDish.AddIngredients(Ing.Text);
         }
     }
 }

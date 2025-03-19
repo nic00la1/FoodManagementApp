@@ -2,25 +2,36 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FoodManagementApp.MVVM.View.MainPage"
+             xmlns:vm ="clr-namespace:FoodManagementApp.MVVM.ViewModel"
              Title="Lista Potraw">
-    <StackLayout>
-        <ListView x:Name="DishesListView"
-                  ItemsSource="{Binding Dishes}"
-                  SelectedItem="{Binding SelectedDish}"
-                  ItemTapped="OnDishTapped">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Orientation="Horizontal" Padding="10">
-                            <Image Source="{Binding ImageUrl}" WidthRequest="50" HeightRequest="50" Margin="0,0,10,0" />
-                            <StackLayout Orientation="Vertical" VerticalOptions="Center">
-                                <Label Text="{Binding Name}" FontSize="Medium" />
-                                <Label Text="{Binding Price, StringFormat='{}{0:C}'}" FontSize="Small" TextColor="Gray" />
-                            </StackLayout>
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </StackLayout>
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Label Text="Potrawy" FontSize="Large"/>
+            <ListView ItemsSource="{Binding Dishes}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <VerticalStackLayout>
+                                <Image Source="{Binding ImageUrl}" WidthRequest="80" HeightRequest="80"/>
+                                <Label Text="{Binding Name}"/>
+                                <Label>
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Cena:"/>
+                                            <Span Text=" "/>
+                                            <Span Text="{Binding Price}"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Button Text="Edytuj" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=ShowDetailedCmd}" CommandParameter="{Binding}"/>
+                            </VerticalStackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </VerticalStackLayout>
+    </ScrollView>
+
 </ContentPage>

@@ -3,9 +3,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FoodManagementApp.MVVM.View.EditDishPage"
              Title="Edytuj Potrawę">
-    <StackLayout Padding="10">
-        <Entry Text="{Binding SelectedDish.Name}" Placeholder="Nazwa potrawy" />
-        <Entry Text="{Binding SelectedDish.Price}" Placeholder="Cena" Keyboard="Numeric" />
-        <Button Text="Zapisz" Command="{Binding SaveCommand}" />
-    </StackLayout>
+    <ScrollView>
+
+        <VerticalStackLayout Spacing="20">
+            <Label Text="Edycja potrawy" FontSize="Large"/>
+            <Image Source="{Binding ImageUrl}" WidthRequest="100" HeightRequest="100"/>
+            <Entry Text="{Binding Name}"/>
+            <Entry Text="{Binding Description}"/>
+            <Entry Text="{Binding Price}"/>
+            <Label Text="Składniki:"/>
+            <CollectionView ItemsSource="{Binding Ingredients}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Span="2" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding}"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Entry Placeholder="Nowy skladnik" x:Name="Ing" />
+            <Button Text="Dodaj Skladnik" Clicked="AddIngredient"/>
+            <Button Text="Zapisz" Clicked="SaveEditDish"/>
+
+
+        </VerticalStackLayout>
+    </ScrollView>
+
 </ContentPage>

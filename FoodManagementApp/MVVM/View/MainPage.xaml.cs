@@ -7,17 +7,8 @@ namespace FoodManagementApp.MVVM.View
     {
         public MainPage()
         {
-            InitializeComponent();
-            BindingContext = new MainPageViewModel();
-        }
-
-        private void OnDishTapped(object sender, ItemTappedEventArgs e)
-        {
-            if (e.Item != null)
-            {
-                ((MainPageViewModel)BindingContext).DishTappedCommand.Execute(e.Item);
-                ((ListView)sender).SelectedItem = null;
-            }
+            InitializeComponent(); 
+            BindingContext = new MainPageViewModel(new Services.DishService(), Navigation);
         }
     }
 }
