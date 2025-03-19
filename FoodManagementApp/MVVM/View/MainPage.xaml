@@ -9,13 +9,15 @@
             Padding="30,0"
             Spacing="25">
             <Label Text="Potrawy" FontSize="Large"/>
-            <ListView ItemsSource="{Binding Dishes}">
-                <ListView.ItemTemplate>
+            <CollectionView ItemsSource="{Binding Dishes}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedDish}">
+                <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <VerticalStackLayout>
-                                <Image Source="{Binding ImageUrl}" WidthRequest="80" HeightRequest="80"/>
-                                <Label Text="{Binding Name}"/>
+                        <StackLayout Orientation="Horizontal" Padding="10">
+                            <Image Source="{Binding ImageUrl}" WidthRequest="80" HeightRequest="80"/>
+                            <StackLayout Orientation="Vertical" VerticalOptions="Center">
+                                <Label Text="{Binding Name}" FontSize="Medium"/>
                                 <Label>
                                     <Label.FormattedText>
                                         <FormattedString>
@@ -26,12 +28,11 @@
                                     </Label.FormattedText>
                                 </Label>
                                 <Button Text="Edytuj" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=ShowDetailedCmd}" CommandParameter="{Binding}"/>
-                            </VerticalStackLayout>
-                        </ViewCell>
+                            </StackLayout>
+                        </StackLayout>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>

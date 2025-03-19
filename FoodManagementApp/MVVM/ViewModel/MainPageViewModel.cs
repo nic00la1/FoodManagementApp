@@ -30,7 +30,7 @@ namespace FoodManagementApp.MVVM.ViewModel
             if (dish != null)
             {
                 if (dish != null)
-                    await _navigation.PushAsync(new EditDishPage(dish));
+                    await _navigation.PushAsync(new EditDishPage(dish, _navigation));
             }
         }
     }
